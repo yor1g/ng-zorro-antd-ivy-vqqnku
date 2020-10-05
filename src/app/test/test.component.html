@@ -1,5 +1,16 @@
- 1111
- 
- <ng-container *ngTemplateOutlet="mainForm" >
-
- </ng-container>
+<nz-select 
+[(ngModel)]="selectedUser" 
+(nzScrollToBottom)="loadMore()"
+ nzPlaceHolder="Select users" 
+ nzAllowClear
+	[nzDropdownMatchSelectWidth]="false">
+	<nz-option *ngFor="let o of optionList; let index=index" 
+  [nzValue]="o+o" [nzLabel]="o+index">
+  </nz-option>
+	<nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+		<i nz-icon nzType="loading" class="loading-icon"></i> 正在查询...
+	</nz-option>
+</nz-select>
+<ng-template #renderTemplate>
+	<nz-spin *ngIf="isLoading"></nz-spin>
+</ng-template>
